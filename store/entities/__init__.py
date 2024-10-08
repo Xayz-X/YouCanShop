@@ -1,0 +1,2 @@
+from .store import Shop
+

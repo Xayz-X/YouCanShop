@@ -4,6 +4,29 @@ from datetime import datetime, timezone
 
 
 @dataclass(slots=True)
+class StoreSwitch:
+    id: str
+    token: str
+    token_type: str
+    expires_at: str
+
+    @classmethod
+    def from_json(cls, data: dict[str, Any]) -> 'StoreSwitch':
+        ...
+        return cls(
+            
+        )
+
+    @property
+    def token_expires_timestamp(self) -> int:
+        expiry_time = datetime.fromisoformat(
+            self.expires_at[:-1]
+        )  # Remove 'Z' and parse
+        return int(expiry_time.replace(tzinfo=timezone.utc).timestamp())
+
+
+
+@dataclass(slots=True)
 class Store:
     id: str
     slug: str

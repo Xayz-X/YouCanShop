@@ -1,4 +1,9 @@
-# import asyncio
+"""
+You can store API DOCs - https://developer.youcan.shop/store-admin/introduction/getting-started
+Postmane Example - https://documenter.getpostman.com/view/29429433/2s9YeD7Y6g
+"""
+
+
 from .http import HTTPClient
 import entities
 
@@ -24,8 +29,21 @@ class StoreClient:
         """
         self._http.token = token
 
+    def get_token(self) -> str | None:
+        """
+        Get the current login token. 
+        
+        .. note::
+            Login token can be None if it does not exist.
 
-    async def login(self, email: str, password: str) -> entities.Shop:
+        Example
+        -------
+        >>> get_token() 
+        """
+        return self._http.token
+        
+
+    async def login(self, email: str, password: str) -> entities.Shop | None:
         """
         Login to store with email and password.
 
@@ -44,8 +62,7 @@ class StoreClient:
         return entities.Shop.from_json(data=response)
     
     
-
-
+    
     # async def get_stores(self) -> entities.StoreList:
     #     """Get all list of store regardless of active and inactive"""
     #     response = await self._http._stores()
